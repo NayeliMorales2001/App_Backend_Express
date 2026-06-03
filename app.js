@@ -50,7 +50,7 @@ const alumno_rutas = require('./routes/alumnos_routes');
 app.use('/alumnos', alumno_rutas);
 
 // ===== PUERTO =====
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 49478;
 
 app.listen(PORT, () => {
   console.log("Servidor ejecutandose en puerto " + PORT);
