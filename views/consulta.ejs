@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Consulta Alumno</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+
+<style>
+body{
+background: linear-gradient(135deg,#4e73df,#1cc88a);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.card-custom{
+border:none;
+border-radius:20px;
+box-shadow:0 20px 40px rgba(0,0,0,0.25);
+padding:35px;
+width:700px;
+background:white;
+}
+
+.header{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+margin-bottom:25px;
+}
+
+.header i{
+font-size:28px;
+color:#4e73df;
+}
+
+.titulo{
+font-weight:700;
+color:#4e73df;
+margin:0;
+}
+
+.info-box{
+background:#f8f9fc;
+border-radius:12px;
+padding:15px;
+margin-bottom:15px;
+box-shadow:0 5px 10px rgba(0,0,0,0.05);
+}
+
+.label{
+font-size:13px;
+color:#888;
+font-weight:600;
+}
+
+.valor{
+font-size:18px;
+font-weight:500;
+color:#222;
+}
+
+.btn-custom{
+border-radius:10px;
+font-weight:600;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card card-custom">
+
+<!-- HEADER -->
+<div class="header">
+<i class="bi bi-person-lines-fill"></i>
+<h3 class="titulo">Consulta de Alumno</h3>
+</div>
+
+<!-- GRID INFO -->
+<div class="row">
+
+<div class="col-md-6">
+<div class="info-box">
+<div class="label">Número de Control</div>
+<div id="nc" class="valor"></div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="info-box">
+<div class="label">Nombre</div>
+<div id="nombre" class="valor"></div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="info-box">
+<div class="label">Primer Apellido</div>
+<div id="ap1" class="valor"></div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="info-box">
+<div class="label">Segundo Apellido</div>
+<div id="ap2" class="valor"></div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="info-box">
+<div class="label">Fecha de Nacimiento</div>
+<div id="fecha" class="valor"></div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="info-box">
+<div class="label">Semestre</div>
+<div id="semestre" class="valor"></div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="info-box">
+<div class="label">Carrera</div>
+<div id="carrera" class="valor"></div>
+</div>
+</div>
+
+</div>
+
+<!-- BOTONES -->
+<div class="mt-4 d-grid gap-2">
+<a href="/" class="btn btn-primary btn-custom">
+<i class="bi bi-arrow-left"></i> Volver
+</a>
+</div>
+
+</div>
+
+<script>
+
+const id = new URLSearchParams(window.location.search).get("id");
+
+if(!id){
+alert("ID no encontrado");
+window.location="/";
+}
+
+fetch("/alumnos/"+id)
+.then(res => res.json())
+.then(a => {
+
+document.getElementById("nc").innerText = a.num_control || '';
+document.getElementById("nombre").innerText = a.nombre || '';
+document.getElementById("ap1").innerText = a.primer_ap || '';
+document.getElementById("ap2").innerText = a.segundo_ap || '';
+document.getElementById("fecha").innerText = a.fecha_nac ? a.fecha_nac.substring(0,10) : '';
+document.getElementById("semestre").innerText = a.semestre || '';
+document.getElementById("carrera").innerText = a.carrera || '';
+
+})
+.catch(()=>{
+alert("Error al cargar datos");
+});
+
+</script>
+
+</body>
+</html>
